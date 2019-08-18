@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib",
-    "autoformat": "prettier --write src/**/* && eslint --fix src/**/*"
+    "autoformat": "prettier --write src/**/* && eslint --fix src/**/*",
+    "reward": "npm run build && node lib/reward"
   },
   "author": "",
   "license": "ISC",

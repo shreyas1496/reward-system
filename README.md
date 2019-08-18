@@ -1,7 +1,9 @@
+## To setup
 ```
-npm run build
+npm install
 ```
 
+## To execute
 ```
-node lib/reward
+npm run reward
 ```

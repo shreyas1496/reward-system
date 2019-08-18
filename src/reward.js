@@ -1,34 +1,35 @@
-const values = {
-  a: {
-    name: 'a',
-    score: 10
-  },
-  b: {
-    name: 'b',
-    score: 5
-  },
-  c: {
-    name: 'c',
-    score: 3
+const values = {};
+
+const updateScores = node => {
+  let counter = 0;
+  const update = node => {
+    node.score += 0.5 ** counter;
+    counter++;
+    if (values[node.parent]) {
+      update(values[node.parent]);
+    }
   }
+  update(node);
 }
 
-const getValues = treePath => {
-  if (treePath.length < 2) 
-    return;
-  let counter = 0;
-  for (let index = treePath.length - 2; index >= 0; index--) {
-    const element = treePath[index];
-    if (!values[element]) {
-      values[element] = {
-        name: element,
-        score: 0
-      };
-    }
-    values[element].score += 0.5 ** counter;
-    counter++;
+const addNode = node => {
+  if (values[node.name]) {
+    return console.log("Already exists", node);
+  } 
+  values[node.name] = node;
+  if (values[node.parent]) {
+    updateScores(values[node.parent]);
   }
-}
-console.log(values);
-getValues(['a', 'b', 'c', 'd']);
-console.log(values);
+};
+
+const main = () => {
+  console.log(values)
+  addNode({ name: 'a', score: 0});
+  addNode({ name: 'b', score: 0, parent: 'a'});
+  addNode({ name: 'c', score: 0, parent: 'b'});
+  addNode({ name: 'c', score: 0, parent: 'b'});
+  addNode({ name: 'd', score: 0, parent: 'c'});
+  console.log(values);
+};
+
+main();
